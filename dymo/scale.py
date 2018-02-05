@@ -1,11 +1,17 @@
 import usb.core
 import usb.util
 
+import math
+
+DATA_MODE_GRAMS = 2
+DATA_MODE_OUNCES = 11
+
+VENDOR_ID  = 0x0922
+PRODUCT_ID = 0x8003
+
 class USB(object):
 
     def __init__(self):
-        VENDOR_ID  = 0x0922
-        PRODUCT_ID = 0x8003
 
         self.device = usb.core.find(idVendor=VENDOR_ID,
                                     idProduct=PRODUCT_ID)
@@ -31,8 +37,18 @@ class USB(object):
                     attempts -= 1
                     continue
 
-        grams = data[4] + (256 * data[5])
+        weight = None
+        raw_weight = data[4] + data[5] * 256
+
+        if data[2] == DATA_MODE_OUNCES:
+            scaling_factor = math.pow(10, (data[3] - 256))
+            ounces = raw_weight * scaling_factor
+            weight = ounces
+        elif data[2] == DATA_MODE_GRAMS:
+            grams = raw_weight
+            weight = grams
+
         if data[1] == 5:
-            grams = grams * -1
-            
-        return grams
+            weight = weight * -1
+
+        return weight, data[2]
