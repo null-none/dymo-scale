@@ -32,4 +32,7 @@ class USB(object):
                     continue
 
         grams = data[4] + (256 * data[5])
+        if data[1] == 5:
+            grams = grams * -1
+            
         return grams
