@@ -14,7 +14,7 @@ class USB(object):
             self.device.detach_kernel_driver(0)
 
         self.device.set_configuration()
-        self.endpoint = device[0][(0,0)][0]
+        self.endpoint = self.device[0][(0,0)][0]
 
 
     def get_weight_grams(self):
