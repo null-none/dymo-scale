@@ -24,7 +24,7 @@ Example
   from dymo import scale
 
   usb = scale.USB()
-  print usb.get_weight_grams()
+  print(usb.get_weight_grams())
 
 
 =======
