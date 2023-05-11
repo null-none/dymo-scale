@@ -13,7 +13,7 @@ Install
 
 .. code-block:: bash
 
-    pip install python-dymo-scale
+    pip install dymo-scale
 
 =======
 Example
