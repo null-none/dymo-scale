@@ -7,9 +7,9 @@ Install
 
 .. code-block:: bash
 
-    sudo apt-get install python libusb-1.0-0
-    # Create text file /etc/udev/rules.d/99-garmin.rules with contents:
-    # SUBSYSTEM=="usb", ATTR{idVendor}=="0922", ATTR{idProduct}=="8003", MODE="666" 
+    # sudo apt-get install python libusb-1.0-0
+    # touch /etc/udev/rules.d/99-garmin.rules
+    # echo 'SUBSYSTEM=="usb", ATTR{idVendor}=="0922", ATTR{idProduct}=="8003", MODE="666"' > /etc/udev/rules.d/99-garmin.rules
 
 .. code-block:: bash
 
@@ -23,8 +23,8 @@ Example
 
   from dymo import scale
 
-  usb = scale.USB()
-  print usb.get_weight_grams()
+  usb = scale.USB(vendor_id=0x0922, product_id=0x8003)
+  print usb.get_weight()
 
 
 =======

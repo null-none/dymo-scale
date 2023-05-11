@@ -11,19 +11,21 @@ PRODUCT_ID = 0x8003
 
 class USB(object):
 
-    def __init__(self):
+    def __init__(self, vendor_id=VENDOR_ID, product_id=PRODUCT_ID):
 
-        self.device = usb.core.find(idVendor=VENDOR_ID,
-                                    idProduct=PRODUCT_ID)
+        self.device = usb.core.find(idVendor=vendor_id,
+                                    idProduct=product_id)
 
         if self.device.is_kernel_driver_active(0):
             self.device.detach_kernel_driver(0)
 
         self.device.set_configuration()
         self.endpoint = self.device[0][(0,0)][0]
+    
+    def __del__(self):
+        self.device.reset()
 
-
-    def get_weight_grams(self):
+    def get_weight(self):
         attempts = 10
         data = None
         grams = 0
