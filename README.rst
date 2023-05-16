@@ -24,7 +24,7 @@ Example
   from dymo import scale
 
   usb = scale.USB(vendor_id=0x0922, product_id=0x8003)
-  print usb.get_weight()
+  print(usb.get_weight())
 
 
 =======
